@@ -18,7 +18,7 @@ while(problem.next()){
 var problem = new GlideRecord('problem');
 problem.query();
 if(problem.canCreate() && problem.canRead() && problem.canWrite() && problem.canDelete()){
-  gs.print("I'm god");
+  gs.print("I'm a god");
 }
 
 //Contagem do número de incidentes
@@ -36,3 +36,24 @@ var incident = new GlideRecord('incident');
 incident.query();
 incident.next();
 gs.print(incident.getLink());
+
+//Apagar multiplos incidentes
+var incident = new GlideRecord('incident');
+incident.addEncodedQuery('short_descriptionLIKETest #');
+incident.deleteMultiple();
+
+//Atualizar informação de um incidente
+var incident = new GlideRecord('incident');
+incident.query();
+incident.next();
+incident.urgency = 2;
+incident.update();
+
+//Atualizar informação de mais de um incidente
+var incident = new GlideRecord('incident');
+incident.addQuery('priority', 3);
+incident.query();
+while(incident.next()){
+  incident.priority = 2;
+  incident.update();
+}
